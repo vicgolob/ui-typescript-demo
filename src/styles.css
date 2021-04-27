@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+* {
+  margin: 0;
+  font-family: 'Roboto';
+  font-size: medium;
+}
+
+label {
+  margin-bottom: .5rem;
+}
+
+input, textarea, button {
+  background-color: #FFFFFF;
+  border: transparent;
+  border-radius: 3px;
+}
+
+input {
+  height: 3em;
+}
+
+textarea {
+  resize: none;
+}
+
+button {
+  border: none;
+}

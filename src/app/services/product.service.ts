@@ -1,46 +1,57 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { catchError } from 'rxjs/operators';
+
 import { Product } from '../models/product';
+import { HttpErrorHandler, HandleError } from '../http-error-handler.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json',
+  })
+};
+
+@Injectable()
 export class ProductService {
+  producstAPI = 'api/products';
+  private handleError: HandleError;
 
-  productsCollection: AngularFirestoreCollection<Product>;
-  products: Observable<Product[]>;
-  productDoc: AngularFirestoreDocument<Product>;
-
-  constructor(public db: AngularFirestore) {
-    // this.products = this.db.collection('products').valueChanges();
-    this.productsCollection = this.db.collection('products');
-    this.products = this.productsCollection.snapshotChanges().pipe(map(actions => {
-      return actions.map(a => {
-        const data = a.payload.doc.data() as Product;
-        data.id = a.payload.doc.id;
-         return data;
-      });
-    }));
+  constructor(
+    private http: HttpClient,
+    private httpErrorHandler: HttpErrorHandler
+  ) {
+    this.handleError = httpErrorHandler.createHandleError('ProductsService');
   }
 
-  getProducts() {
-    return this.products;
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.producstAPI)
+      .pipe(
+        catchError(this.handleError('getProducts', []))
+      );
   }
 
   addProduct(product: Product) {
-    this.productsCollection.add(product);
+    return this.http.post<Product>(this.producstAPI, product, httpOptions)
+      .pipe(
+        catchError(this.handleError('addProduct', product))
+      );
   }
 
-  deleteProduct(product: Product) {
-    this.productDoc = this.db.doc(`products/${product.id}`);
-    this.productDoc.delete();
+  deleteProduct(product: Product): Observable<Product> {
+    const url = `${this.producstAPI}/${product.id}`;
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteProduct'))
+      );
   }
 
-  updateProduct(product: Product) {
-    this.productDoc = this.db.doc(`products/${product.id}`);
-    this.productDoc.update(product);
+  updateProduct(product: Product): Observable<Product> {
+    const url = `${this.producstAPI}/${product.id}`;
+    return this.http.put<Product>(url, product, httpOptions)
+      .pipe(
+        catchError(this.handleError('deleteProduct', product))
+      );
   }
 
 }

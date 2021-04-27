@@ -4,31 +4,39 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
-// FIRESTORE
-import { AngularFireModule } from '@angular/fire';
-import { environment } from '../environments/environment';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { ProductsComponent } from './components/products/products.component';
+import {
+  ProductsComponent,
+  ProductFormComponent,
+  ProductsListComponent
+} from './components';
 
 // Service
-import { ProductService } from './services/product.service';
-import { ProductFormComponent } from './components/product-form/product-form.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService } from './in-memory-data.service';
+import { HttpErrorHandler } from './http-error-handler.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
+    // and returns simulated server responses.
+    // Remove it when a real server is ready to receive requests.
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    ),
+  ],
   declarations: [
     AppComponent,
     ProductsComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductsListComponent,
   ],
-  imports: [
-    BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    FormsModule
-  ],
-  providers: [
-    ProductService
-  ],
+  providers: [HttpErrorHandler],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

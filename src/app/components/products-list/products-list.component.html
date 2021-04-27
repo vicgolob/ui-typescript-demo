@@ -1,0 +1,44 @@
+<div class="product-list">
+  <div *ngIf="products.length > 0; else noproducts">
+    <ul [@listAnimation]="products.length" *ngFor="let p of products">
+      <li id={{p.id}}>
+        <div class="product-header">
+          {{ p.name | uppercase }} <br/>
+        </div>
+        <div class="product-body">
+          <div class="product-desc-price">
+            <div>
+              {{p.description}} <br/>
+            </div>
+            <div>
+              {{p.price | currency}} <br/>
+            </div>
+          </div>
+          <button (click)="this.deleteProduct($event, p)">
+            Borrar
+          </button>
+
+          <button (click)="editProduct($event, p)">
+           Editar
+          </button>
+          <div *ngIf="editing && editingProduct.id == p.id">
+            <form (ngSubmit)="updateProduct(product)">
+              <input type="text" name="name" [(ngModel)]="editingProduct.name">
+              <input type="text" name="description" [(ngModel)]="editingProduct.description">
+              <input type="text" name="price" [(ngModel)]="editingProduct.price">
+              <button type="submit">
+                Actualizar
+              </button>
+            </form>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <ng-template #noproducts>
+    <p>
+      Aún no hay productos cargados
+    </p>
+  </ng-template>
+</div>

@@ -1,9 +1,15 @@
 <form (ngSubmit)="addProduct()">
-  <input type="text" name="name" [(ngModel)]="product.name"> 
-  <input type="text" name="description" [(ngModel)]="product.description"> 
-  <input type="number" name="price" [(ngModel)]="product.price" step="0.01"> 
+  <label for="name">Nombre</label>
+  <input type="text" name="name" [(ngModel)]="product.name">
+
+  <label for="description">Descripción</label>
+  <textarea rows="5" type="text" name="description" [(ngModel)]="product.description" >
+  </textarea>
+
+  <label for="price">Precio</label>
+  <input type="number" name="price" [(ngModel)]="product.price" step="0.01">
 
   <button type="submit">
-    Save
+    Guardar
   </button>
 </form>

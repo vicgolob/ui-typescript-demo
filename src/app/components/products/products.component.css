@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+app-product-form {
+  display: flex;
+  flex: 0 300px;
+}
+
+app-products-list {
+  display: flex;
+  flex: 1;
+}

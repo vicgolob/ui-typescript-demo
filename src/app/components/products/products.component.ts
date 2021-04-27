@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../services/product.service';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Product } from '../../models/product';
 
 @Component({
@@ -8,32 +7,13 @@ import { Product } from '../../models/product';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+  incomingProduct: Product;
+  constructor() { }
 
-  products = [];
-  editing: boolean = false;
-  editingProduct: Product;
+  ngOnInit() {}
 
-  constructor(public productService: ProductService) { }
-
-  ngOnInit() {
-    this.productService.getProducts().subscribe(products => {
-      this.products = products;
-    });    
-  }
-
-  deleteProduct(event, product) {
-    this.productService.deleteProduct(product);
-  }
-
-  editProduct(event, product) {
-    this.editing = !this.editing;
-    this.editingProduct = product;
-  }
-
-  updateProduct() {
-    this.productService.updateProduct(this.editingProduct);
-    this.editingProduct = {} as Product;
-    this.editing = false;
+  updateProductsList(newProduct: Product) {
+    this.incomingProduct = newProduct;
   }
 
 }

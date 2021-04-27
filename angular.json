@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angualar6-firestore": {
+    "typescript-project": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angualar6-firestore",
+            "outputPath": "dist/typescript-project",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angualar6-firestore:build"
+            "browserTarget": "typescript-project:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angualar6-firestore:build:production"
+              "browserTarget": "typescript-project:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angualar6-firestore:build"
+            "browserTarget": "typescript-project:build"
           }
         },
         "test": {
@@ -95,7 +95,7 @@
         }
       }
     },
-    "angualar6-firestore-e2e": {
+    "typescript-project-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "targets": {
@@ -103,11 +103,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angualar6-firestore:serve"
+            "devServerTarget": "typescript-project:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angualar6-firestore:serve:production"
+              "devServerTarget": "typescript-project:serve:production"
             }
           }
         },
@@ -123,5 +123,5 @@
       }
     }
   },
-  "defaultProject": "angualar6-firestore"
+  "defaultProject": "typescript-project"
 }
