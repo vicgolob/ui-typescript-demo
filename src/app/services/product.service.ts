@@ -12,6 +12,8 @@ const httpOptions = {
   })
 };
 
+//test
+
 @Injectable()
 export class ProductService {
   producstAPI = 'api/products';
@@ -25,6 +27,7 @@ export class ProductService {
   }
 
   getProducts(): Observable<Product[]> {
+    this.verificar();
     return this.http.get<Product[]>(this.producstAPI)
       .pipe(
         catchError(this.handleError('getProducts', []))
@@ -32,6 +35,8 @@ export class ProductService {
   }
 
   addProduct(product: Product) {
+
+    //return this.verificar();
     return this.http.post<Product>(this.producstAPI, product, httpOptions)
       .pipe(
         catchError(this.handleError('addProduct', product))
@@ -52,6 +57,10 @@ export class ProductService {
       .pipe(
         catchError(this.handleError('deleteProduct', product))
       );
+  }
+
+  verificar():Product {
+    return {}
   }
 
 }

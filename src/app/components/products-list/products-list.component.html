@@ -14,11 +14,11 @@
               {{p.price | currency}} <br/>
             </div>
           </div>
-          <button (click)="this.deleteProduct($event, p)">
+          <button (click)="this.deleteProduct($event, p)" class="btn-delete">
             Borrar
           </button>
 
-          <button (click)="editProduct($event, p)">
+          <button (click)="editProduct($event, p)" class="btn-edit">
            Editar
           </button>
           <div *ngIf="editing && editingProduct.id == p.id">

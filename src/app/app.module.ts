@@ -16,6 +16,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { HttpErrorHandler } from './http-error-handler.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -35,6 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ProductsComponent,
     ProductFormComponent,
     ProductsListComponent,
+    SpinnerComponent,
   ],
   providers: [HttpErrorHandler],
   bootstrap: [AppComponent]
