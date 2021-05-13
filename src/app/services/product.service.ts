@@ -32,6 +32,7 @@ export class ProductService {
   }
 
   addProduct(product: Product) {
+
     return this.http.post<Product>(this.producstAPI, product, httpOptions)
       .pipe(
         catchError(this.handleError('addProduct', product))
@@ -43,7 +44,7 @@ export class ProductService {
     return this.http.delete(url, httpOptions)
       .pipe(
         catchError(this.handleError('deleteProduct'))
-      );
+      ) as Observable<Product>;
   }
 
   updateProduct(product: Product): Observable<Product> {

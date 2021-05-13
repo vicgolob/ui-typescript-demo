@@ -1,6 +1,6 @@
 {
-  "name": "typescript-project",
-  "version": "0.0.0",
+  "name": "ui-typescript-demo",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

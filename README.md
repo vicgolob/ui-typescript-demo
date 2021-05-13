@@ -1,10 +1,8 @@
-# Angular6Firestore
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.1.
+# Angular
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.9.
 
 ## Packages
-- firebase
-- angularfire2: `npm install firebase @angular/fire --save` 
+- angular: `npm install @angular/cli --save` 
 
 ## Development server
 

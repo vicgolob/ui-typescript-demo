@@ -2,19 +2,26 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { ProductService } from 'src/app/services/product.service';
 import { Product } from '../../models/product';
 import { InMemoryDataService } from '../../in-memory-data.service';
-import { trigger, transition, style, animate, query, stagger } from '@angular/animations';
+import { trigger, transition, style, animate, query, stagger, state } from '@angular/animations';
 
 const listAnimation = trigger('listAnimation', [
-  transition('* <=> *', [
-    query(':enter',
-      [style({ opacity: 0 }), stagger('60ms', animate('1000ms ease-out', style({ opacity: 1 })))],
-      { optional: true }
-    ),
-    query(':leave',
-      animate('200ms', style({ opacity: 0 })),
-      { optional: true }
-    )
-  ])
+	transition(':enter', [
+		style({ opacity: 0, transform: 'translateX(-100%)' }),
+		animate('500ms', style({ opacity: 1, transform: 'translateX(0)' })),
+	]),
+	transition(':leave', [
+		animate('500ms', style({ opacity: 0, transform: 'translateX(100%)' })),
+	]),
+]);
+
+const editorAnimation = trigger('editorAnimation', [
+	transition(':enter', [
+		style({ opacity: 0 }),
+		animate('200ms', style({ opacity: 1 })),
+	]),
+	transition(':leave', [
+		animate('200ms', style({ opacity: 0, display: 'none' })),
+	]),
 ]);
 
 @Component({
@@ -22,14 +29,14 @@ const listAnimation = trigger('listAnimation', [
   templateUrl: './products-list.component.html',
   styleUrls: ['./products-list.component.css'],
   providers: [ProductService],
-  animations: [listAnimation]
+  animations: [listAnimation, editorAnimation]
 })
 export class ProductsListComponent implements OnInit, OnChanges {
   @Input()
-  incomingProduct: Product = {};
+  incomingProduct: Product = {} as Product;
 
   products: Product[] = [];
-  editingProduct: Product = {};
+  editingProduct: Product = {} as Product;
   editing: Boolean = false;
 
   constructor(private productService: ProductService, private dataService: InMemoryDataService) { }
@@ -61,6 +68,11 @@ export class ProductsListComponent implements OnInit, OnChanges {
   editProduct(event, product) {
     this.editing = !this.editing;
     this.editingProduct = product;
+  }
+
+  cancelEdit() {
+    this.editing = !this.editing;
+    this.editingProduct = {} as Product;
   }
 
   updateProduct() {
