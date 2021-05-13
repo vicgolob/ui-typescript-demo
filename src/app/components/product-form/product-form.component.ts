@@ -22,10 +22,10 @@ export class ProductFormComponent implements OnInit {
   addProduct(): void {
     if (this.product.name && this.product.price && this.product.description) {
       this.productService.addProduct(this.product)
-        /*.subscribe(product => {
+        .subscribe(product => {
           this.newProductAdded.emit(this.product);
           this.product = {} as Product;
-        })*/
+        })
     }
   }
 

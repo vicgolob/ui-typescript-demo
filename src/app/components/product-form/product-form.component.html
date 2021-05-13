@@ -4,11 +4,10 @@
   <input type="text" name="name" [(ngModel)]="product.name">
 
   <label for="description">Descripción</label>
-  <textarea rows="5" type="text" name="description" [(ngModel)]="product.description" >
-  </textarea>
+  <textarea rows="5" type="text" name="description" [(ngModel)]="product.description" ></textarea>
 
   <label for="price">Precio</label>
-  <input type="number" name="price" [(ngModel)]="product.price" step="0.01">
+  <input type="number" name="price" [(ngModel)]="product.price" step="0.5" min="1">
 
   <button type="submit">
     Guardar

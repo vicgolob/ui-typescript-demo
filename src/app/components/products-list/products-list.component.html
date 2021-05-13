@@ -1,6 +1,6 @@
 <div class="product-list">
   <div *ngIf="products.length > 0; else noproducts">
-    <ul [@listAnimation]="products.length" *ngFor="let p of products">
+    <ul *ngFor="let p of products" @listAnimation>
       <li id={{p.id}}>
         <div class="product-header">
           {{ p.name | uppercase }} <br/>
@@ -14,21 +14,27 @@
               {{p.price | currency}} <br/>
             </div>
           </div>
-          <button (click)="this.deleteProduct($event, p)" class="btn-delete">
+          <button (click)="this.deleteProduct($event, p)" class="btn-secondary">
             Borrar
           </button>
-
-          <button (click)="editProduct($event, p)" class="btn-edit">
+          <button (click)="editProduct($event, p)" class="btn-primary">
            Editar
           </button>
-          <div *ngIf="editing && editingProduct.id == p.id">
-            <form (ngSubmit)="updateProduct(product)">
+          <div *ngIf="editing && editingProduct.id == p.id" class="editor" @editorAnimation>
+            <form (ngSubmit)="updateProduct(p)">
               <input type="text" name="name" [(ngModel)]="editingProduct.name">
-              <input type="text" name="description" [(ngModel)]="editingProduct.description">
-              <input type="text" name="price" [(ngModel)]="editingProduct.price">
-              <button type="submit">
-                Actualizar
-              </button>
+              <!-- <input type="text" name="description" [(ngModel)]="editingProduct.description"> -->
+              <textarea rows="5" type="text" name="description" [(ngModel)]="editingProduct.description" ></textarea>
+
+              <input type="number" name="price" [(ngModel)]="editingProduct.price" step="0.5" min="1">
+              <div class="options-wrapper">
+                <button type="submit" class="btn-primary">
+                  Actualizar
+                </button>
+                <button type="button" (click)="cancelEdit($event)" class="btn-secondary">
+                  Cancelar
+                </button>
+              </div>
             </form>
           </div>
         </div>

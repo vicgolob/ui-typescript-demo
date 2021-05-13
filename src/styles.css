@@ -4,6 +4,7 @@
   margin: 0;
   font-family: sans-serif;
   font-size: medium;
+  box-sizing: border-box;
 }
 
 label {
@@ -16,8 +17,9 @@ input, textarea, button {
   border-radius: 3px;
 }
 
-input {
+input:not(:last-child), textarea {
   height: 3em;
+  margin-bottom: 1.5em;
 }
 
 textarea {
